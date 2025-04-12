@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Card Memory Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flipcard.css') }}">
+</head>
+<body>
+    <div class="game-wrapper">
+        <h1>Memory Match</h1>
+        
+        <div class="stats-container">
+            <div class="stat">
+                <div class="stat-label">Flips</div>
+                <div class="stat-value" id="flips">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Matches</div>
+                <div class="stat-value" id="matches">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Time</div>
+                <div class="stat-value" id="timer">00:00</div>
+            </div>
+        </div>
+        
+        <div class="game-container" id="game"></div>
+        
+        <div class="controls">
+            <button id="restart">New Game</button>
+        </div>
+    </div>
+    
+    <div class="message" id="winMessage">
+        <div class="message-content">
+            <h2>Congratulations!</h2>
+            <p>You've matched all the cards!</p>
+            <p>Flips: <span id="finalFlips">0</span></p>
+            <p>Time: <span id="finalTime">00:00</span></p>
+            <button id="playAgain">Play Again</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/flipcardsc.js') }}"></script>
+</body>
+</html>js">

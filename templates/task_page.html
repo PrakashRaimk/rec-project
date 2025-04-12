@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Hive - Tasks</title>
+    <style>
+        :root {
+            --primary: #FFBB33;
+            --secondary: #6B4226;
+            --accent: #FFF2D9;
+            --light: #FFFBF2;
+            --dark: #4A3520;
+            --warning: #FF6B6B;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            text-align: center;
+        }
+        
+        .task-list {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .task-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .task-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--secondary);
+            flex-grow: 1;
+        }
+        
+        .task-expired {
+            color: var(--warning);
+            font-weight: bold;
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            background-color: #FFF0F0;
+            margin-left: 1rem;
+        }
+        
+        .task-not-expired {
+            color: #28a745;
+            font-weight: bold;
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            background-color: #f0fff0;
+            margin-left: 1rem;
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .task-icon {
+                margin-bottom: 0.5rem;
+            }
+            
+            .task-expired, .task-not-expired {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span>🐻</span>
+            <span>Happy Hive</span>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1>Daily Tasks</h1>
+        
+        <div class="task-list" id="task-list">
+            <!-- Tasks will be added here dynamically -->
+        </div>
+    </div>
+    
+    <footer>
+        <h3>Happy Hive</h3>
+        <p>A voice companion for autistic children</p>
+        <div class="footer-links">
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="games.html" class="footer-link">Games</a>
+            <a href="#" class="footer-link">About Us</a>
+            <a href="#" class="footer-link">Contact</a>
+        </div>
+        <p>&copy; 2025 Happy Hive. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to parse task data in the format: "1,brush,5:00"
+        function parseTaskData(taskDataString) {
+            const taskData = [];
+            
+            // Split the input string into lines if it contains multiple tasks
+            const lines = taskDataString.trim().split('\n');
+            
+            lines.forEach(line => {
+                if (line.trim()) {
+                    const parts = line.split(',');
+                    if (parts.length >= 3) {
+                        const id = parseInt(parts[0]);
+                        const name = parts[1].trim();
+                        const timeStr = parts[2].trim();
+                        
+                        // Determine if expired
+                        // For demo purposes, we'll consider time "0:00" as expired
+                        const isExpired = (timeStr === "0:00");
+                        
+                        // Assign an appropriate icon based on the task name
+                        let icon = assignIconByTaskName(name);
+                        
+                        taskData.push({
+                            id: id,
+                            name: name,
+                            isExpired: isExpired,
+                            icon: icon
+                        });
+                    }
+                }
+            });
+            
+            return taskData;
+        }
+        
+        // Assign an icon based on task name keywords
+        function assignIconByTaskName(name) {
+            const lowerName = name.toLowerCase();
+            
+            if (lowerName.includes('brush') || lowerName.includes('wash') || lowerName.includes('clean')) {
+                return '🧼';
+            } else if (lowerName.includes('eat') || lowerName.includes('food') || lowerName.includes('meal')) {
+                return '🍎';
+            } else if (lowerName.includes('run') || lowerName.includes('exercise') || lowerName.includes('play')) {
+                return '🏃';
+            } else if (lowerName.includes('read') || lowerName.includes('book') || lowerName.includes('study')) {
+                return '📚';
+            } else if (lowerName.includes('game') || lowerName.includes('puzzle')) {
+                return '🎮';
+            } else if (lowerName.includes('happy') || lowerName.includes('smile') || lowerName.includes('feel')) {
+                return '😊';
+            } else if (lowerName.includes('think') || lowerName.includes('learn')) {
+                return '🧠';
+            } else if (lowerName.includes('draw') || lowerName.includes('paint') || lowerName.includes('art')) {
+                return '🎨';
+            } else {
+                // Default icon
+                return '🐻';
+            }
+        }
+        
+        // Sample data - this would be replaced with data from your Flask backend
+        const sampleDataString = "1,brush teeth,5:00\n2,eat breakfast,0:00\n3,read a book,15:00\n4,play outside,0:00\n5,clean up toys,5:00";
+        let tasks = parseTaskData(sampleDataString);
+        
+        // Function to render tasks
+        function renderTasks() {
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';
+            
+            tasks.forEach(task => {
+                const taskItem = document.createElement('div');
+                taskItem.className = 'task-item';
+                
+                taskItem.innerHTML = `
+                    <div class="task-icon">${task.icon}</div>
+                    <div class="task-name">${task.name}</div>
+                    <div class="${task.isExpired ? 'task-expired' : 'task-not-expired'}">
+                        ${task.isExpired ? 'Task missed' : 'Active'}
+                    </div>
+                `;
+                
+                taskList.appendChild(taskItem);
+            });
+        }
+        
+        // Function to handle receiving new data from Flask
+        function updateTasksFromFlask(dataString) {
+            tasks = parseTaskData(dataString);
+            renderTasks();
+        }
+        
+        // Initial render
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTasks();
+            
+            // In a real application, you would fetch tasks from your Flask backend
+            // fetch('/api/tasks')
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         updateTasksFromFlask(data);
+            //     });
+        });
+        
+        // Setup periodic refresh (if using polling instead of WebSockets)
+        // setInterval(() => {
+        //     fetch('/api/tasks')
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             updateTasksFromFlask(data);
+        //         });
+        // }, 5000); // Check every 5 seconds
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Voice Recorder</title>
+</head>
+<body>
+  <h2>Voice Recorder</h2>
+  <button onclick="startRecording()">Start Recording</button>
+  <button onclick="stopRecording()">Stop Recording</button>
+
+  <p id="result">Waiting for input...</p>
+
+  <audio id="player" controls></audio>
+
+  <!-- Recorder.js dependencies -->
+  <script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/recorderWorker.js') }}"></script>
+
+  <script>
+    let recorder;
+    let audioContext;
+    let gumStream;
+
+    async function startRecording() {
+      try {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        gumStream = stream;
+        const input = audioContext.createMediaStreamSource(stream);
+        recorder = new Recorder(input, { numChannels: 1 });
+
+        recorder.record();
+        console.log("Recording started");
+        document.getElementById("result").innerText = "Recording...";
+      } catch (err) {
+        console.error("Mic access denied:", err);
+        document.getElementById("result").innerText = "Mic access denied: " + err;
+      }
+    }
+
+    function stopRecording() {
+      if (!recorder) {
+        console.error("Recorder not initialized");
+        return;
+      }
+
+      recorder.stop();
+      gumStream.getAudioTracks()[0].stop();
+      console.log("Recording stopped");
+      document.getElementById("result").innerText = "Processing...";
+
+      recorder.exportWAV(blob => {
+        const formData = new FormData();
+        formData.append("audio", blob, "recording.wav");
+
+        fetch("/upload", {
+          method: "POST",
+          body: formData
+        })
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById("result").innerText = data;
+          const player = document.getElementById("player");
+          player.src = URL.createObjectURL(blob);
+          player.play();
+        })
+        .catch(err => {
+          console.error("Upload error:", err);
+          document.getElementById("result").innerText = "Upload failed";
+        });
+      });
+    }
+  </script>
+</body>
+</html>

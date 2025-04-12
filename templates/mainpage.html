@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Hive - Voice Companion for Autistic Children</title>
+    <style>
+        :root {
+            --primary: #FFBB33;
+            --secondary: #6B4226;
+            --accent: #FFF2D9;
+            --light: #FFFBF2;
+            --dark: #4A3520;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .hero-content {
+            flex: 1;
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .bear-image {
+            width: 300px;
+            height: 300px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 8rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--secondary);
+        }
+        
+        .emoji-keyboard {
+            background-color: var(--accent);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .emoji {
+            font-size: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .emoji:hover {
+            transform: scale(1.1);
+        }
+        
+        .cta {
+            background-color: var(--primary);
+            padding: 3rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--secondary);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 2rem;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark);
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span>🐻</span>
+            <span>Happy Hive</span>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>A Voice Companion for Autistic Children</h1>
+                <p>Happy Hive is an intricately designed platform catering to the needs of autistic children. It acts as a voice companion to improve and stabilize their overall state in any kind of environment.</p>
+                <a href="#features" class="btn">Explore Features</a>
+            </div>
+            <div class="hero-image">
+                <div class="bear-image">🐻</div>
+            </div>
+        </section>
+        
+        <section id="features" class="features">
+            <a href="games.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                <div class="feature-icon">🎮</div>
+                <h3>Interactive Games</h3>
+                <p>Educational games designed specifically for autistic children to develop social skills, emotional recognition, and sensory processing in a fun way.</p>
+            </a>
+            
+            
+            <div class="feature-card">
+                <div class="feature-icon">😊</div>
+                <h3>Emoji Keyboard</h3>
+                <p>A specially designed emoji keyboard to aid in non-verbal communication, making it easier for children to express their emotions and needs.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Storytelling & Role Play</h3>
+                <p>Interactive storytelling components and role play scenarios that guide children to understand social cues and behavioral mannerisms.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Progress Tracking</h3>
+                <p>Comprehensive reports showing improvements and response growth over time, helping parents and caregivers monitor development.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Strong Privacy</h3>
+                <p>Following strong encryption and decryption protocols that restrict access to confidential information without proper authorization.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Emotional Intelligence</h3>
+                <p>Guides children to build up social skills, emotional intelligence, and confidence in themselves at their own pace.</p>
+            </div>
+        </section>
+        
+        <section class="emoji-example">
+            <h2>Communication Made Easier</h2>
+            <p>Our emoji keyboard helps children express themselves when words are difficult:</p>
+            <div class="emoji-keyboard">
+                <div class="emoji">😊</div>
+                <div class="emoji">😢</div>
+                <div class="emoji">😡</div>
+                <div class="emoji">😴</div>
+                <div class="emoji">🤔</div>
+                <div class="emoji">👍</div>
+                <div class="emoji">👎</div>
+                <div class="emoji">❤</div>
+                <div class="emoji">🎮</div>
+                <div class="emoji">🍕</div>
+            </div>
+        </section>
+        
+        <section class="cta">
+            <h2>Begin Your Child's Journey Today</h2>
+            <p>Happy Hive aims to serve as a comforting companion that guides your child to develop essential life skills.</p>
+            <a href="#" class="btn">Download Happy Hive</a>
+        </section>
+    </div>
+    
+    <footer>
+        <h3>Happy Hive</h3>
+        <p>A voice companion for autistic children</p>
+        <div class="footer-links">
+            <a href="#" class="footer-link">About Us</a>
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Support</a>
+        </div>
+        <p>&copy; 2025 Happy Hive. All rights reserved.</p>
+    </footer>
+</body>
+</html>
